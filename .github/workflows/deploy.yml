@@ -1,0 +1,34 @@
+# Automatyczna aktualizacja cryptotypo.com
+# Każdy commit na gałęzi main wysyła zmienione pliki na serwer przez FTP.
+name: Deploy na serwer (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # przycisk "Run workflow" w zakładce Actions
+
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz pliki z repozytorium
+        uses: actions/checkout@v4
+
+      - name: Wyślij na serwer
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps            # jeśli hosting nie obsługuje FTPS, zmień na: ftp
+          server-dir: public_html/  # folder strony na serwerze, musi kończyć się ukośnikiem
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            CNAME
