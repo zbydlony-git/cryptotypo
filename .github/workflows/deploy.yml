@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps            # jeśli hosting nie obsługuje FTPS, zmień na: ftp
-          server-dir: public_html/  # folder strony na serwerze, musi kończyć się ukośnikiem
+          server-dir: domains/cryptotypo.com/public_html/  # folder strony na serwerze, musi kończyć się ukośnikiem
           exclude: |
             **/.git*
             **/.git*/**
