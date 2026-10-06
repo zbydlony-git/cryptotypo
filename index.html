@@ -96,16 +96,20 @@ a:hover .arw,a:focus-visible .arw{transform:translate(.18em,-.18em)}
 
 /* ---------- phone: vertical composition ---------- */
 @media (max-width:760px){
-  :root{--type:calc((100vw - 2*var(--g)) / 5.12)}
-  .hero{height:auto;min-height:100%;display:flex;flex-direction:column;padding:var(--g)}
-  .top{position:relative;inset:auto}
-  .logo{width:84px}
-  .type{position:relative;left:auto;bottom:auto;margin-top:clamp(28px,6svh,56px)}
-  .stage-wrap{position:static;flex:1 1 auto;min-height:max(360px,50svh);margin-top:8px}
-  .cap{position:relative;left:auto;top:auto;max-width:none;margin-top:14px}
-  .act{position:relative;left:auto;bottom:auto;width:100%;margin-top:16px;gap:12px}
-  .cta{width:100%;justify-content:space-between;font-size:17px;padding:1.15em 1.4em}
+  /* phone: the whole scene fits the visible screen (svh = height with browser bars shown);
+     the 3D band takes whatever height is left, so the button is always on screen */
+  :root{--type:min(calc((100vw - 2*var(--g)) / 5.12), 10.5svh)}
+  .hero{height:100vh;height:100svh;min-height:0;display:flex;flex-direction:column;
+    padding:calc(var(--g) + env(safe-area-inset-top,0px)) calc(var(--g) + env(safe-area-inset-right,0px)) calc(var(--g) + env(safe-area-inset-bottom,0px)) calc(var(--g) + env(safe-area-inset-left,0px))}
+  .top{position:relative;inset:auto;flex:none}
+  .logo{width:clamp(52px,10svh,84px)}
+  .type{position:relative;left:auto;bottom:auto;flex:none;margin-top:clamp(10px,3.6svh,44px)}
+  .stage-wrap{position:static;flex:1 1 0;min-height:0;margin-top:4px}
+  .cap{position:relative;left:auto;top:auto;flex:none;max-width:none;margin-top:clamp(4px,1.4svh,14px);font-size:11px}
+  .act{position:relative;left:auto;bottom:auto;flex:none;width:100%;margin-top:clamp(8px,1.8svh,16px);gap:clamp(6px,1.3svh,12px)}
+  .cta{width:100%;justify-content:space-between;font-size:17px;padding:clamp(.8em,2svh,1.15em) 1.4em}
 }
+@media (max-width:760px) and (max-height:560px){ .mail{font-size:12px} .copy{padding:4px 9px} }
 @media (min-width:761px){ .stage-wrap{display:contents} }
 @media (min-width:761px) and (max-height:620px){ :root{--type:min(15vw,27svh)} .cap{display:none} }
 
